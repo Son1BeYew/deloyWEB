@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Migrations\**" />
     <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Migrations\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Migrations\**" />
     <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,7 +46,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\pdf\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>

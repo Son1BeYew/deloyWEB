@@ -16,7 +16,12 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
 .AddRoles<IdentityRole>() // Thêm hỗ trợ role
 .AddEntityFrameworkStores<QlvayTienContext>();
-
+builder.Services.AddSignalR();
+//services hỗ trợ đa ngôn ngữ
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
 // Đăng ký RoleManager vào DI container
 builder.Services.AddScoped<RoleManager<IdentityRole>>();
 builder.Services.ConfigureApplicationCookie(options =>
@@ -32,19 +37,34 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<PdfGenerator>();
 builder.Services.AddScoped<EmailSender>();
+builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
+
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<MoMoService>();
+builder.Services.AddScoped<VnpayService>();
+builder.Services.AddTransient<EmailService>();
+builder.Services.AddSession();
 var app = builder.Build();
+var supportedCultures = new[] { "en-US", "vi-VN" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture("vi-VN")
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
+app.MapHub<VAYTIEN.Hubs.ChatHub>("/chatHub");
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseForceLogoutOnStartup();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
