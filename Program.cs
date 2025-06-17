@@ -5,7 +5,7 @@ using VAYTIEN.Models;
 using Microsoft.Extensions.DependencyInjection;
 using VAYTIEN.Services;
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Configuration.AddEnvironmentVariables();
 // Cấu hình DbContext và Identity
 builder.Services.AddDbContext<QlvayTienContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
