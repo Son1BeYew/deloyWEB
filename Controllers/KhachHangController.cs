@@ -422,7 +422,7 @@ namespace VAYTIEN.Controllers
 
         // BỔ SUNG: Hàm ParsePublicIdFromCloudinaryUrl (PRIVATE)
         // Hàm này sẽ được gọi từ CreateStep1 và Edit POST
-        private string ?ParsePublicIdFromCloudinaryUrl(string? imageUrl)
+        private string? ParsePublicIdFromCloudinaryUrl(string? imageUrl)
         {
             if (string.IsNullOrEmpty(imageUrl)) return null;
 
@@ -526,7 +526,7 @@ namespace VAYTIEN.Controllers
             return View(khachHang); // Trả về View DiemTinDung.cshtml
         }
         // BỔ SUNG: Action xem chi tiết hợp đồng
-       
+
 
     }
 
